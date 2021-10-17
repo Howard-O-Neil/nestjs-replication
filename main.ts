@@ -1,5 +1,5 @@
 import express from 'express';
-import { RouteDefinition } from './decorators/route-definition';
+import { RouteDefinition } from './controller/route-definition';
 
 export const app = express();
 const port = 3000;
@@ -9,9 +9,9 @@ app.get('/', (_, res) => {
 });
 
 // import "./application/people_info"
-import './decorators/test';
+import './controller/test';
 // after this, all decorators related to UserController is loaded
-import UserController from './decorators/test';
+import UserController from './controller/test';
 
 [
   UserController
