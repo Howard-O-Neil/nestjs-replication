@@ -1,12 +1,8 @@
 import {app} from "@/main"
-import "reflect-metadata"
 
 app.get('/hello', (_, res) => {
     res.send("hello world api")
 })
-
-import "reflect-metadata";
-import {Type} from "typescript";
 
 class Point {
     constructor(public x: number, public y: number) {}
@@ -54,8 +50,8 @@ function stricted(target: Object, propertyKey: string | symbol, parameterIndex: 
 type generic_func = (...x: any[]) => any | void
 function validate_func(target: any, propertyKey: string, descriptor: TypedPropertyDescriptor<generic_func>) {
     let method = descriptor.value!;
-
     descriptor.value = function (...args: any[]) {
+        console.log(target)
         let metaDataTypes: any[] = Reflect.getMetadata("design:paramtypes", target, propertyKey)
         let requiredParameters: number[] = Reflect.getMetadata(strictedMetadataKey, target, propertyKey)
 
@@ -63,7 +59,7 @@ function validate_func(target: any, propertyKey: string, descriptor: TypedProper
             for (let index of requiredParameters) {
                 if (index >= requiredParameters.length || args[index] == undefined
                     || !(args[index] instanceof metaDataTypes[index])) {
-                    throw new TypeError('Invalid type')
+                    console.log('throw new TypeError(\'Invalid type\')')
                 }
             }
         }
